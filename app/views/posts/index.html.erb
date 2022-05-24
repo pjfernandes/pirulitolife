@@ -1,17 +1,15 @@
-<% if user_signed_in? && current_user.admin?%>
-  <div class="buttons text-center">
-    <%= link_to "New", new_post_path, class:"btn btn-info mt-5 mb-2 ml-2" %>
-  </div>
-<%end%>
+<h1 class="text-center mt-4"><i class="fas fa-camera text-info"></i><span class="title-text text-secondary"> Photos</span></h1>
 
-<div class="photos">
-  <% if @post.photos.attached? %>
-    <% @post.photos.each do |photo| %>
-      <div class="photo-card">
-        <a href="<%=cloudinary_url(photo.key)%>" target="_blank">
-          <%= cl_image_tag photo.key, height: 300, width: 300, crop: :fill, class: "photo" %>
-        </a>
-      </div>
+<div class="index-content">
+  <div class="photos mt-3">
+    <% @posts.each do |post| %>
+      <%= cl_image_tag post.photo.key, height: 200, width: 200, crop: :fill, class: "photo-card" %>
     <% end %>
-  <% end %>
+  </div>
 </div>
+
+  <% if user_signed_in? && current_user.admin?%>
+    <div class="buttons text-center">
+      <%= link_to "New", new_post_path, class:"btn btn-info mt-4 mb-2" %>
+    </div>
+  <%end%>

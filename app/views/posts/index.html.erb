@@ -1,0 +1,5 @@
+<% if user_signed_in? && current_user.admin?%>
+  <div class="buttons text-center">
+    <%= link_to "New", new_post_path, class:"btn btn-info mt-5 mb-2 ml-2" %>
+  </div>
+<%end%>

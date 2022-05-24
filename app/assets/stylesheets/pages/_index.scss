@@ -1,2 +1,18 @@
 // Import page-specific CSS files here.
 @import "home";
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  color: navy;
+  cursor: pointer;
+}

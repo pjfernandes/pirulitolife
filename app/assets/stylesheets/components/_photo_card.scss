@@ -15,6 +15,14 @@
   align-items: center;
 }
 
+.index-content img:hover {
+  border: solid 1px orange;
+}
+
+.index-content img:active {
+  border: solid 1px orange;
+}
+
 @media(max-width: 992px) {
   .photos {
     grid-template-columns: 1fr 1fr;

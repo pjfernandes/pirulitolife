@@ -1,13 +1,15 @@
 class CommentsController < ApplicationController
+  skip_before_action :authenticate_user!, only: %i[index show create]
 
   def create
     @post = Post.find(params[:post_id])
     @comment = Comment.new(comment_params)
     @comment.post = @post
+    @comment.user = current_user
     if @comment.save
-      redirect_to post_path(@post)
+      redirect_to post_path(@post, anchor: "comment-#{@comment.id}")
     else
-      render 'posts/show'
+      render "posts/show"
     end
   end
 

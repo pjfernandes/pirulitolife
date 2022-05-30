@@ -6,10 +6,20 @@
     <span class="text-dark mt-1"> <i class="fas fa-dog text-info"></i> <%= @post.legend %></span> <span class="text-secondary"><%= @post.created_at.strftime("%F") %> </span>
   </div>
 
-<%= simple_form_for([ @post, @comment ]) do |f| %>
-  <%= f.input :content, as: :text %>
-  <%= f.button :submit %>
-<% end %>
+    <%= simple_form_for([ @post, @comment ], remote: true) do |f| %>
+      <%= f.input :content, as: :text %>
+      <%= f.button :submit %>
+    <% end %>
+
+    <div id="comments">
+      <% if @post.comments.blank? %>
+        Be the first to leave a review
+      <% else %>
+        <% @post.comments.each do |comment| %>
+          <p id="comment-<%= comment.id %>"><%= comment.content %></p>
+        <% end %>
+      <% end %>
+    </div>
 
 
   <div>

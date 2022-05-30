@@ -13,7 +13,7 @@ class PostsController < ApplicationController
     if current_user.admin?
       @post = Post.new
     else
-      redirect_to posts_path
+      redirect_to post_path(@post)
     end
   end
 
@@ -26,6 +26,14 @@ class PostsController < ApplicationController
       else
         render :new
       end
+    end
+  end
+
+  def destroy
+    if current_user.admin?
+      @post = Post.find(params[:id])
+      @post.destroy
+      redirect_to posts_path
     end
   end
 

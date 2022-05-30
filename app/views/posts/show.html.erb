@@ -1,0 +1,15 @@
+<h1 class="text-center mt-4"><i class="fas fa-camera text-info"></i><span class="title-text text-secondary"> Photo</span></h1>
+
+<div class="photo-show mb-3">
+  <%= cl_image_tag @post.photo.key, class: "pirulito-photo" %>
+  <span class="text-secondary mt-1"> <%= @post.legend %> </span>
+  <div>
+    <%= link_to "Back", posts_path, class: "btn btn-secondary mt-4 mr-3" %>
+    <% if current_user.admin == true %>
+      <%= link_to "Delete",
+        post_path(@post),
+        method: :delete,
+        data: { confirm: "Are you sure?" }, class:"btn btn-danger text-center text-white mt-4 ml-2" %>
+    <% end %>
+  </div>
+</div>

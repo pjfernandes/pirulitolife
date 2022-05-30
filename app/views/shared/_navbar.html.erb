@@ -19,7 +19,9 @@
 
             <%= link_to "", "", class: "avatar dropdown-toggle fas fa-user-circle text-dark pt-2 mt-1", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <%= link_to "New post", "#", class: "dropdown-item" %>
+            <% if current_user.admin == true %>
+              <%= link_to "New post", new_post_path, class: "dropdown-item" %>
+            <% end %>
               <%= link_to "Edit my profile", edit_user_registration_path, class: "dropdown-item" %>
               <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
             </div>

@@ -3,13 +3,7 @@
 <div class="index-content">
   <div class="photos mt-3">
     <% @posts.each do |post| %>
-      <%= cl_image_tag post.photo.key, height: 200, width: 200, crop: :fill, class: "photo-card" %>
+      <a href="<%= post_path(post)%>"><%= cl_image_tag post.photo.key, height: 150, width: 150, crop: :fill, class: "photo-card small" %></a>
     <% end %>
   </div>
 </div>
-
-  <% if user_signed_in? && current_user.admin?%>
-    <div class="buttons text-center">
-      <%= link_to "New", new_post_path, class:"btn btn-info mt-4 mb-2" %>
-    </div>
-  <%end%>

@@ -2,7 +2,7 @@
 
 <div class="index-content">
   <div class="photos mt-3">
-    <% @posts.each do |post| %>
+    <% @posts.sort_by {|post| post.created_at}.reverse.each do |post| %>
       <a href="<%= post_path(post)%>"><%= cl_image_tag post.photo.key, height: 150, width: 150, crop: :fill, class: "photo-card small" %></a>
     <% end %>
   </div>

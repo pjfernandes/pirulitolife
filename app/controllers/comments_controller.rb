@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i[index show create]
+  skip_before_action :authenticate_user!, only: %i[ index show ]
 
   def create
     @post = Post.find(params[:post_id])
@@ -10,6 +10,15 @@ class CommentsController < ApplicationController
       redirect_to post_path(@post, anchor: "comment-#{@comment.id}")
     else
       render "posts/show"
+    end
+  end
+
+  def destroy
+    if current_user.admin?
+      #@post = Post.find(params[:post_id])
+      @comment = Comment.find(params[:id])
+      @comment.destroy
+      redirect_to post_path(@post)
     end
   end
 

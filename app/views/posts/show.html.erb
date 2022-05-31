@@ -1,4 +1,15 @@
-<h1 class="text-center mt-4"><i class="fas fa-camera text-info"></i><span class="title-text text-secondary"> Photo</span></h1>
+<%# <h1 class="text-center mt-4"><i class="fas fa-camera text-info"></i><span class="title-text text-secondary"> Photo</span></h1> %>
+
+<div class="d-flex flex-row justify-content-center mb-4 mt-4">
+  <%= link_to "Back", posts_path, class: "btn btn-secondary mt-4 mr-4" %> &nbsp&nbsp
+  <% if user_signed_in? && current_user.admin == true %>
+    <%= link_to "Delete",
+      post_path(@post),
+      method: :delete,
+      data: { confirm: "Are you sure?" }, class:"btn btn-danger text-center text-white mt-4" %>
+  <% end %>
+</div>
+
 
 <div class="photo-show mb-3">
   <%= cl_image_tag @post.photo.key, class: "pirulito-photo" %>
@@ -6,29 +17,39 @@
     <span class="text-dark mt-1"> <i class="fas fa-dog text-info"></i> <%= @post.legend %></span> <span class="text-secondary"><%= @post.created_at.strftime("%F") %> </span>
   </div>
 
-    <%= simple_form_for([ @post, @comment ], remote: true) do |f| %>
-      <%= f.input :content, as: :text %>
-      <%= f.button :submit %>
+
+
+  <div id="comments" class="comments mt-2">
+    <% if @post.comments.blank? %>
+      <span class="text-secondary">Be the first to leave a comment!</span>
+    <% else %>
+
+      <% @post.comments.each do |comment| %>
+      <div class="notification" id="comment-<%= comment.id %>">
+        <div class="notification-content text-break">
+          <p><small><i class="fas fa-user text-info"></i> <%= User.find(comment.user_id).first_name %></small></p>
+          <p class="text-muted"><small><i class="fas fa-calendar"></i> <%= comment.created_at.strftime("%F") %></small></p>
+          <p class="mt-1"><%= comment.content %></p>
+        </div>
+
+
+        <% if user_signed_in? && current_user.admin == true %>
+          <div class="notification-actions">
+            <%= link_to "Delete",
+              post_comment_path(comment),
+              method: :delete,
+              data: { confirm: "Are you sure?" } %> &nbsp <i class="far fa-trash-alt"></i>
+          </div>
+        <% end %>
+
+      </div>
+
+      <% end %>
     <% end %>
 
-    <div id="comments">
-      <% if @post.comments.blank? %>
-        Be the first to leave a review
-      <% else %>
-        <% @post.comments.each do |comment| %>
-          <p id="comment-<%= comment.id %>"><%= comment.content %></p>
-        <% end %>
-      <% end %>
-    </div>
-
-
-  <div>
-    <%= link_to "Back", posts_path, class: "btn btn-secondary mt-4 mr-3" %>
-    <% if user_signed_in? && current_user.admin == true %>
-      <%= link_to "Delete",
-        post_path(@post),
-        method: :delete,
-        data: { confirm: "Are you sure?" }, class:"btn btn-danger text-center text-white mt-4 ml-2" %>
+    <%= simple_form_for([ @post, @comment ], remote: true) do |f| %>
+      <%= f.input :content, as: :text, label: false %>
+      <%= f.button :submit, class: "btn btn-info btn-sm" %>
     <% end %>
   </div>
 </div>

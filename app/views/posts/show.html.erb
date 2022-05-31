@@ -47,9 +47,11 @@
       <% end %>
     <% end %>
 
-    <%= simple_form_for([ @post, @comment ], remote: true) do |f| %>
-      <%= f.input :content, as: :text, label: false %>
-      <%= f.button :submit, class: "btn btn-info btn-sm" %>
+    <% if user_signed_in? %>
+      <%= simple_form_for([ @post, @comment ], remote: true) do |f| %>
+        <%= f.input :content, as: :text, label: false %>
+        <%= f.button :submit, class: "btn btn-info btn-sm" %>
+      <% end %>
     <% end %>
   </div>
 </div>

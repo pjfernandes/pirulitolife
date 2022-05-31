@@ -20,7 +20,7 @@
 
 
   <div id="comments" class="comments mt-2">
-    <% if @post.comments.blank? %>
+    <% if @post.comments.blank? && user_signed_in?  %>
       <span class="text-secondary">Leave a comment!</span>
     <% else %>
 

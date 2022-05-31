@@ -15,7 +15,7 @@ class CommentsController < ApplicationController
 
   def destroy
     if current_user.admin?
-      #@post = Post.find(params[:post_id])
+      @post = Post.find(params[:post_id])
       @comment = Comment.find(params[:id])
       @comment.destroy
       redirect_to post_path(@post)

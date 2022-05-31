@@ -1,0 +1,22 @@
+<p>Hi <%= @user.first_name %>,</p>
+
+<p>Welcome to <a href="<%= root_url %>">Pirulito's Life</a>!</p>
+
+<p>See ya!</p>
+<p>Pirulito</p>
+
+<%= image_tag "welcome.jpg", class: "welcome-image mt-2 mb-2" %>
+
+
+<style>
+  a {
+    text-decoration: none;
+    color: red;
+  }
+
+  .welcome-image {
+    width: 100px;
+    border-radius: 15px 50px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  }
+</style>
